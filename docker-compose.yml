@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  talker:
+    image: rna/base-image:latest
+    command: ros2 run demo_nodes_cpp talker
+    environment:
+      - QT_X11_NO_MITSHM=1
+      - DISPLAY=:0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
+  listener:
+    image: rna/base-image:latest
+    command: ros2 run demo_nodes_cpp listener
+    environment:
+      - QT_X11_NO_MITSHM=1
+      - DISPLAY=:0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    depends_on:
+      - talker
